@@ -3,11 +3,11 @@ const  mongoose = require('mongoose');
 const ListSchema = new mongoose.Schema({
     listName: {
         type: String,
-        require: true,
+        required: true,
     },
     userName: {
         type: String,
-        require: true,
+        required: true,
     },
     createdAt: {
         type: Date,
