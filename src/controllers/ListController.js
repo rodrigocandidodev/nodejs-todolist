@@ -7,6 +7,10 @@ module.exports = {
         try {
             const {listName, userName} = req.body;
             const list = await List.create({listName, userName});
+            
+            if(list){
+                console.log('> User added a new list!');
+            }
 
             return res.json(list);
         } catch (error) {
@@ -14,8 +18,23 @@ module.exports = {
         }
     },
     async index(req, res){
-        const list = await List.find();
+        try{
+            const list = await List.find();
+            
+            return res.json(list);
+        }catch (error) {
+            return res.json({error: 'List failed!'});
+        }
+    },
+    async show(req, res){
+        try{
+            const listId = req.params.listId;
 
-        return res.json(list);
+            const list = await List.findById(listId);
+
+            return res.json(list);
+        }catch (error) {
+            return res.json({error: 'The search failed!'});
+        }
     }
 };
