@@ -1,8 +1,8 @@
-To Do List project
+# To Do List project
 
 A simple To Do List App.
 
-#Requirements and Abstractions
+# Requirements and Abstractions
 
 1. The user may add new List
 2. Add new tasks on specific List
@@ -12,7 +12,7 @@ A simple To Do List App.
 6. Remove tasks
 7. All data is stored in MongoDB
 
-#Implementation
+# Implementation
 
 Tecnologies used in this project
 
