@@ -1,6 +1,7 @@
 const express = require('express');
 
 const List = require('../models/List');
+const Task = require('../models/Task');
 
 module.exports = {
     async store(req,res){
@@ -44,6 +45,7 @@ module.exports = {
                 listName: req.body.listName
             };
             await List.findByIdAndUpdate(listId, data);
+
             console.log('> User updated a list!');
             return res.json({message: "User updated a list!"});
         } catch( error ){
@@ -53,9 +55,19 @@ module.exports = {
     async delete(req, res){
         try{
             const listId = req.params.listId;
+
+            const task = await Task.find({list: listId});
+                
+            if(task.length > 0){
+                task.forEach(async element => {
+                    await Task.findByIdAndRemove(element.id);
+                    console.log('> User removed: ',element.taskName);
+                });
+            }
             await List.findByIdAndRemove(listId);
             console.log('> User removed a list!');
-            return res.json({message:'User removed a list!'});
+
+            return res.json({message: 'List successfully removed!'});
         } catch(error){
             return res.json({error: 'Operation failed while deleting list!'});
         }
